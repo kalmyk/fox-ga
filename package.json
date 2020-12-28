@@ -1,0 +1,16 @@
+{
+  "name": "fox-ga",
+  "version": "0.0.1",
+  "description": "implementation of distributed Genetic Algorithm based on message queue paradigm",
+  "author": {
+    "name": "Anatoly Tsapkov",
+    "email": "anatoly.tsapkov@gmail.com"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "mqtt": "^4.2.6"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  }
+}
