@@ -10,6 +10,11 @@
   "dependencies": {
     "mqtt": "^4.2.6"
   },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-as-promised": "*",
+    "chai-spies": "*"
+  },
   "engines": {
     "node": ">=6.0.0"
   }
