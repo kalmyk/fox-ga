@@ -36,18 +36,19 @@ const ge = new GeneticEngine(
 
 const computeStep = function () {
   // calculation step may get as many phenotypes to evaluate as it want
-  const { id, limit, phenotype, parents } = ge.getPhenotype()
+  const { id, phenotype } = ge.getPhenotype()
 
   // async calculation function started here, timer function is added for demo purposes
   setTimeout(() => {
     const fitness = Math.sqrt(phenotype.any_value) // very long phenotype evaluation function
 
-    console.log('evaluation done', fitness, limit, id, phenotype);
+    console.log(ge.getGeneration(), 'evaluation done', id, fitness, phenotype);
 
     // return async result to engine and save it to queue provider
-    ge.rank(fitness, limit, id, phenotype, parents)
+    ge.rank(id, fitness)
 
-    // start another iteration
+    // start another iteration immediately after events processed,
+    // storage population updates are loaded here
     setImmediate(computeStep)
   }, 1000);
 }
