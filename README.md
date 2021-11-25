@@ -29,11 +29,15 @@ const ge = new GeneticEngine(
       ...
       return { id:<phenotype-identifier>, phenotype: <any-structure> }
     }
-  },
-  new BindMqtt(client, <path-to-population-store>)
+  }
 )
 ```
 ! good idea to have "phenotype-identifier" equal to sha1(JSON.stringify(phenotype))
+
+### connect to queue storage
+```js
+  await ge.init(new BindMqtt(client, <path-to-population-store>))
+```
 
 ### get phenotype for evaluation
 ```js

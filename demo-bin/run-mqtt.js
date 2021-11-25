@@ -30,8 +30,7 @@ const ge = new GeneticEngine(
       console.log("crossover", phenotype, '+', partner, '=>', id)
       return { id, phenotype: { any_label: 'NN-CR-'+id, any_value: id } }
     }
-  },
-  new BindMqtt(client, 'demo/ga')
+  }
 )
 
 const computeStep = function () {
@@ -53,7 +52,11 @@ const computeStep = function () {
   }, 1000);
 }
 
-client.on('connect', function () {
+client.on('connect', async () => {
+
+  // connect to queue storage
+  await ge.init(new BindMqtt(client, 'demo/ga'))
+
   console.log('queue provider connected.');
   setImmediate(computeStep);
 })
