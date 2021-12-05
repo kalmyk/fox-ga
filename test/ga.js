@@ -17,12 +17,12 @@ describe('GeneticEngine', function () {
     id = 0
     ge = new GeneticEngine({
       populationSize: 5,
-      generate: function () {
-        return { id: ++id, phenotype: 'generate' }
+      seed: function () {
+        return { id: ++id, genome: 'seed' }
       },
-      mutate: function (phenotype) {
-        phenotype.data++
-        return { id: ++id, phenotype }
+      mutate: function (genome) {
+        genome.data++
+        return { id: ++id, genome }
       },
       crossover: function (a,b) {
         return { id: ++id, a }
@@ -35,7 +35,7 @@ describe('GeneticEngine', function () {
   })
 
   it('create-one', function () {
-    let {id, phenotype} = ge.getPhenotype()
+    let {id, genome} = ge.getGenome()
     expect(id).to.equal(1)
   })
 
