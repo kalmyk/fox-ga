@@ -5,11 +5,16 @@ The goal of the project is to provide ability to run time consuming fitness func
 Any standard MQTT broker could be used as shared genome storage. Mosquitto & [FOX-WAMP](https://github.com/kalmyk/fox-wamp) were tested.
 
 ## benefits:
-* external storage is used to save genome population
-* ability to have as many workers to calculate as hosts available
+* external storage is used to save population
+* ability to have as many workers to compute fitness as hosts available
 * ability to restart worker with no affect to calculation process
-* ability to have fitness batch calculation function
+* ability to calculate simultaneously fitnesses of batch of genomes
 * engine module does not limit computation process by time
+
+## install:
+```shell
+npm i git+https://github.com/kalmyk/fox-ga.git
+```
 
 ## usage:
 Here is demo evaluation function in './demo-bin/run-mqtt.js'. The demo evaluation function use timer to show long computation time of fitness evaluation function.
@@ -32,7 +37,7 @@ const ge = new GeneticEngine({
   }
 })
 ```
-! good idea to have "genome-identifier" equal to sha1(JSON.stringify(genome)), this id must be unique for the whole cluster
+> ! Good idea to have "genome-identifier" equal to sha1(JSON.stringify(genome)), this id must be unique for the whole cluster
 
 ### connect to queue storage
 ```js
@@ -63,6 +68,10 @@ const computeStep = function () {
   const { id, genome } = ge.getGenome()
   const fitness = myEvaluationFunc(genome)
   ge.rank(id, fitness)
+  if (isGood(fitness)) {
+    console.log('best fitness found', id, fitness)
+    return
+  }
   setImmediate(computeStep)
 }
 
