@@ -43,7 +43,7 @@ const computeStep = function () {
     console.log(ge.getGeneration(), 'evaluation done', id, fitness, genome)
 
     // return async result to engine and save it to queue provider
-    ge.rank(id, fitness)
+    ge.rate(id, fitness)
 
     // start another iteration immediately after events processed,
     // storage population updates are loaded here
@@ -58,7 +58,7 @@ client.stream.on('error', (err) => {
 client.on('connect', async () => {
 
   // connect to queue storage
-  await ge.init(new BindMqtt(client, 'demo/ga'))
+  await ge.bindStorage(new BindMqtt(client, 'demo/ga'))
 
   console.log('queue provider connected.');
   setImmediate(computeStep)

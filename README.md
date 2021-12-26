@@ -41,7 +41,7 @@ const ge = new GeneticEngine({
 
 ### connect to queue storage
 ```js
-  await ge.init(new BindMqtt(client, <path-to-population-store>))
+  await ge.bindStorage(new BindMqtt(client, <path-to-population-store>))
 ```
 
 ### get genome for fitness evaluation
@@ -54,7 +54,7 @@ where:
 
 ### apply genome fitness to population
 ```js
-ge.rank(id, fitness)
+ge.rate(id, fitness)
 ```
 where:
 * id: genome-identifier obtained from getGenome function
@@ -67,7 +67,7 @@ The calculation loop need to have free time to load events from remote storage. 
 const computeStep = function () {
   const { id, genome } = ge.getGenome()
   const fitness = myEvaluationFunc(genome)
-  ge.rank(id, fitness)
+  ge.rate(id, fitness)
   if (isGood(fitness)) {
     console.log('best fitness found', id, fitness)
     return
@@ -76,7 +76,7 @@ const computeStep = function () {
 }
 
 client.on('connect', async () => {
-  await ge.init(new BindMqtt(client, 'demo/ga'))
+  await ge.bindStorage(new BindMqtt(client, 'demo/ga'))
   setImmediate(computeStep)
 })
 ```
