@@ -19,10 +19,7 @@ if (cluster.isMaster) {
       setImmediate(computeStep)
     }, 1000)
   }
-
-  geThread.init().then(() => {
-    setImmediate(computeStep)
-  })
+  setImmediate(computeStep)
 
 } else {
 
@@ -36,7 +33,7 @@ if (cluster.isMaster) {
     )+''
   }
 
-  const ge = new GeneticEngine({
+  geThread.evaluate(new GeneticEngine({
     populationSize: 10,
     events: toConsole,
     seed: function () {
@@ -54,8 +51,7 @@ if (cluster.isMaster) {
       console.log("crossover", genome, '+', partner, '=>', id)
       return { id, genome: { any_label: 'NN-CR-'+id, any_value: id } }
     }
-  })
-  geThread.evaluate(ge)
+  }))
 
   const client  = mqtt.connect('mqtt://localhost')
   client.stream.on('error', (err) => {
