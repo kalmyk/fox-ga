@@ -84,6 +84,10 @@ client.on('connect', async () => {
 ### termination function
 There is no termination function. The calculation loop and it exit condition is implemented in a custom code.
 
+### island grouping variation
+
+### dedicated communication thread
+
 ## Get current population state:
 ```shell
 $ mosquitto_sub --retained-only -t '<path-to-population-store>/population/#' -v

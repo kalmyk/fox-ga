@@ -1,5 +1,16 @@
 'use strict'
 
+/*
+  example implementation of a GA worker, to run the worker an MQTT queue
+  must have be running, see https://github.com/kalmyk/fox-wamp
+
+  a worker designed to simultaneously operate as many instances
+  as the equipment can handle
+
+  The demonstration uses Math.sqrt as the evaluation function,
+  a time delay is added for the visual effect of a complex calculation
+*/
+
 const mqtt = require('mqtt')
 const { GeneticEngine, toConsole } = require('../lib/ga')
 const { BindMqtt } = require('../lib/bindmqtt')

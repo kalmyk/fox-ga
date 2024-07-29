@@ -1,4 +1,7 @@
 'use strict'
+/*
+  same as run-mqtt.js but communication with queue separated from calculation thread
+*/
 
 const cluster = require('cluster')
 const geThread = require('../lib/gethread')
